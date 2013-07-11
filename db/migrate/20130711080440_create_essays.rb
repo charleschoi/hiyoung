@@ -3,6 +3,7 @@ class CreateEssays < ActiveRecord::Migration
     create_table :essays do |t|
       t.integer :user_id
       t.integer :topic_id
+			t.string :username
       t.text :content
 
       t.timestamps

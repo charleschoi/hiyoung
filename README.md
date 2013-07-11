@@ -21,12 +21,14 @@ Model
 2. topic
 
 	- user_id:integer
+	- username
 	- content:text
 
 3. essay
 
 	- user_id:integer
 	- topic_id:integer
+	- username
 	- content:text
 	
 4. stence
@@ -39,6 +41,7 @@ Model
 
 	- user_id:integer
 	- setence_id:integer
+	- username
 	- content:text
 	
 6. check

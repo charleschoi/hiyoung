@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
     t.integer  "setence_id"
+    t.string   "username"
     t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
   create_table "essays", :force => true do |t|
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.string   "username"
     t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
 
   create_table "topics", :force => true do |t|
     t.integer  "user_id"
+    t.string   "username"
     t.text     "content"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
