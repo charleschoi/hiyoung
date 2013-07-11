@@ -48,3 +48,20 @@ Model
 	- comment_id:integer
 	- user_id:integer
 	- viewed:boolean
+	
+	
+-----
+Controller
+
+1. study
+
+	- index : recent topic and essay, form of new topic, write button on each topic, comment button on each essay
+	- topic : topics list and each essay list
+	- topic_process : for new topic
+	- essay : essays list (truncated)
+	- write : show topic and write form
+	- write_process : for new essay
+	- read : topic and essay, essay list in topic
+	- comment : topic and essay setences + comment form
+	- comment_process : for new comment
+	
