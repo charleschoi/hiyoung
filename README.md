@@ -23,6 +23,7 @@ Model
 	- user_id:integer
 	- username
 	- content:text
+	- count:integer
 
 3. essay
 

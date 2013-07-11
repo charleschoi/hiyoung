@@ -4,6 +4,7 @@ class CreateTopics < ActiveRecord::Migration
       t.integer :user_id
 			t.string :username
       t.text :content
+			t.integer :count
 
       t.timestamps
     end

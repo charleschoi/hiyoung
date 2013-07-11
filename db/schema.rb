@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
     t.integer  "user_id"
     t.string   "username"
     t.text     "content"
+    t.integer  "count"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

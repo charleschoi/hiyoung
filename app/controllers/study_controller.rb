@@ -1,10 +1,11 @@
 class StudyController < ApplicationController
   def index
-		@hot_topic = Topic.all
-		@recent_essay = Essay.all
+		@hot_topic = Topic.order("count DESC").first(6)
+		@recent_essay = Essay.last(6)
   end
 
   def topic
+		@topic = Topic.all
   end
 
 	def topic_process

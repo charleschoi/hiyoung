@@ -1,51 +1,36 @@
 <div class="container-fluid">
   <h1>Hot Topic</h1>
-  <div class="row-fluid">
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <a class="btn btn-primary btn-block">Write Essay</a> 
-      </div>
-    </div>
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <a class="btn btn-primary btn-block">Write Essay</a> 
-      </div>
-    </div>
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <a class="btn btn-primary btn-block">Write Essay</a> 
-      </div>
-    </div>
-  </div>
-  <form action="/study/topic_process" method="post">
-    <textarea class="input-block-level" rows="3" name="content"></textarea>
-    <button type="submit" class="btn btn-block btn-warning">New Topic</button> 
-  </form>
+	<% @hot_topic.each_with_index do |t, index| %>
+		<% if index % 3 == 0 %>
+			<div class="row-fluid">
+		<% end %>
+			<div class="span4">
+				<div class="well">
+					<p><h3><%=index+1-%></h3> <%= t.content %></p>
+					<a href="/study/write/<%=t.id%>" class="btn btn-primary btn-block">Write Essay</a> 
+				</div>
+			</div>
+		<% if index % 3 == 2 %>
+			</div>
+		<% end %>
+	<% end %>
+	<%= form_tag(controller: "study", action: "topic_process", method: "get") %>
+		<%= text_area_tag(:content, "", rows: "3", class: "input-block-level") %>
+		<%= submit_tag("New Topic", class: "btn btn-block btn-warning") %>
   <h1>New Essay</h1>
-  <div class="row-fluid">
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <p class="muted">- charles</p>
-        <a class="btn btn-success btn-block">Read more</a> 
-      </div>
-    </div>
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <p class="muted">- charles</p>
-        <a class="btn btn-success btn-block">Read more</a> 
-      </div>
-    </div>
-    <div class="span4">
-      <div class="well">
-        <p>Enter your paragraph text here.</p>
-        <p class="muted">- charles</p>
-        <a class="btn btn-success btn-block">Read more</a> 
-      </div>
-    </div>
-  </div>
+	<% @recent_essay.each_with_index do |e, index| %>
+		<% if index % 3 == 0 %>
+			<div class="row-fluid">
+		<% end %>
+			<div class="span4">
+				<div class="well">
+					<p><%= e.content %></p>
+					<p class="muted">- <%= e.username %></p>
+					<a href="/study/read/<%=e.id%>" class="btn btn-success btn-block">Read more</a> 
+				</div>
+			</div>
+		<% if index % 3 == 2 %>
+			</div>
+		<% end %>
+	<% end %>
 </div>
