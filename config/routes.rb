@@ -11,6 +11,8 @@ Hiyoung::Application.routes.draw do
 
   get "study/comment"
 
+	root :to => 'study#index'
+
   match ':controller(/:action(/:id))(.:format)'
 	match 'auth/:provider/callback', to: 'sessions#create'
 	match 'auth/failure', to: redirect('/')
