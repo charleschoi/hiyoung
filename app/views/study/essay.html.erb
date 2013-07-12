@@ -1,45 +1,24 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
-      <div class="row-fluid">
+		<% @essay.each_with_index do |e, index| %>
+			<% if index % 2 == 0 %>
+				<div class="row-fluid">
+			<% end %>
         <div class="span6">
-          <h2>Topic #1</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <h3>Essay #1</h3>
-          <p>Officiis cupiditate exercitation eos in aliquip, placeat assumenda aspernatur
-            modi. Placeat magni delectus maxime eos omnis laboris enim architecto officia
-            numquam enim corporis sapiente iusto laboris excepturi voluptates minim
-            nulla. Molestiae ex cumque porro assumenda adipisicing eius quaerat minima
-            sapiente minima nemo velit soluta, lorem aliquam, laboris iusto fugit voluptas
-            blanditiis, eveniet dicta occaecati rerum. Eligendi fuga repudiandae eius
-            quos exercitationem voluptatibus minima accusamus architecto sunt error
-            magni cum, voluptate consectetur, quibusdam ipsum voluptatibus minim duis
-            voluptas unde hic enim consequatur velit at.</p>
+          <h2>Topic #<%= e.topic.id%></h2>
+          <p><%= e.topic.content%></p>
+          <h3>Essay #<%= e.id%></h3>
+          <p><%= e.summary %></p>
           <a class="btn btn-block btn-success"
           href="#"><span class="btn-label">Read more</span></a> 
         </div>
-        <div class="span6">
-          <h2>Topic #2</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <h3>Essay #1</h3>
-          <p>Officiis cupiditate exercitation eos in aliquip, placeat assumenda aspernatur
-            modi. Placeat magni delectus maxime eos omnis laboris enim architecto officia
-            numquam enim corporis sapiente iusto laboris excepturi voluptates minim
-            nulla. Molestiae ex cumque porro assumenda adipisicing eius quaerat minima
-            sapiente minima nemo velit soluta, lorem aliquam, laboris iusto fugit voluptas
-            blanditiis, eveniet dicta occaecati rerum. Eligendi fuga repudiandae eius
-            quos exercitationem voluptatibus minima accusamus architecto sunt error
-            magni cum, voluptate consectetur, quibusdam ipsum voluptatibus minim duis
-            voluptas unde hic enim consequatur velit at.</p>
-          <a class="btn btn-block btn-success"
-          href="#"><span class="btn-label">Read more</span></a> 
-        </div>
-      </div>
-    </div>
+			<% if index % 2 == 1 %>
+				</div>
+			<% end %>
+		<% end %>
+    </div><!-- span 8 -->
     <div class="span4">
-      <ul class="nav  nav-pills nav-stacked"></ul>
       <div class="well">
         <p>Aute dicta elit inventore ex necessitatibus, repudiandae minus quaerat
           fuga odio aute, elit facilis velit. Blanditiis cumque voluptate esse ratione

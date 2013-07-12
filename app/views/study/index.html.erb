@@ -17,6 +17,7 @@
 	<%= form_tag(controller: "study", action: "topic_process", method: "get") %>
 		<%= text_area_tag(:content, "", rows: "3", class: "input-block-level") %>
 		<%= submit_tag("New Topic", class: "btn btn-block btn-warning") %>
+	</form>
   <h1>New Essay</h1>
 	<% @recent_essay.each_with_index do |e, index| %>
 		<% if index % 3 == 0 %>

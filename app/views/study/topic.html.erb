@@ -1,13 +1,14 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
-      <div class="row-fluid">
+		<% @topic.each_with_index do |t, index| %>
+			<% if index % 2 == 0 %>
+				<div class="row-fluid">
+			<% end %>
         <div class="span6">
-          <h2>Topic #1</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <a class="btn btn-block btn-primary"
-          href="#"><span class="btn-label">Write Essay</span></a>
+          <h2>Topic #<%=t.id%></h2>
+          <p><%=t.content%></p>
+          <a class="btn btn-block btn-primary" href="/study/write/<%=t.id%>"><span class="btn-label">Write Essay</span></a>
           <table class="table table-striped table-hover">
             <thead>
               <tr>
@@ -17,62 +18,23 @@
               </tr>
             </thead>
             <tbody>
+						<% t.essays.each_with_index do |e, index| %>
               <tr>
-                <td>1</td>
-                <td>Hi hello asdfasdfasdfas asdfasdf asdfa sdf asdf asdfasdf asdf asdfa sdf
-                  asdfasf asdf asdf asdf asdf&nbsp;
-                  <br> 
-                </td>
+                <td><%= index + 1 %></td>
+                <td><%= e.summary %></td>
                 <td>
-                  <a class="btn btn-warning btn-mini">Read</a> 
+                  <a href="/study/read/<%=e.id-%>" class="btn btn-warning btn-mini">Read</a> 
                 </td>
               </tr>
-              <tr>
-                <td>2</td>
-                <td>Hi hello asdfasdfasdfas asdfasdf asdfa sdf asdf asdfasdf asdf asdfa sdf
-                  asdfasf asdf asdf asdf asdf&nbsp;</td>
-                <td>
-                  <a class="btn btn-warning btn-mini">Read</a> 
-                </td>
-              </tr>
+						<% end %>
             </tbody>
           </table>
-        </div>
-        <div class="span6">
-          <h2>Topic #2</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <a class="btn btn-block btn-primary"
-          href="#"><span class="btn-label">Write Essay</span></a>
-          <table class="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Essays</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>sdfasdfasdf asdf asdfasd asdf asdf asdfasdf asdf asdf&nbsp;</td>
-                <td>
-                  <a class="btn btn-warning btn-mini">Read</a> 
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Hi hello asdfasdfasdfas asdfasdf asdfa sdf asdf asdfasdf asdf asdfa sdf
-                  asdfasf asdf asdf asdf asdf&nbsp;</td>
-                <td>
-                  <a class="btn btn-warning btn-mini">Read</a> 
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+        </div><!-- span6 -->
+			<% if index % 2 == 1 %>
+				</div><!-- row-fluid -->
+			<% end %>
+		<% end %>
+    </div><!-- span8 -->
     <div class="span4">
       <div class="well">
         <p>Aute dicta elit inventore ex necessitatibus, repudiandae minus quaerat

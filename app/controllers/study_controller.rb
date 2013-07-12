@@ -19,6 +19,7 @@ class StudyController < ApplicationController
 	end
 
   def essay
+		@essay = Essay.all
   end
 
   def write

@@ -1,5 +1,5 @@
 class Essay < ActiveRecord::Base
-  attr_accessible :content, :topic_id, :user_id, :username
+  attr_accessible :content, :topic_id, :user_id, :username, :summary
 	belongs_to	:topic
 	belongs_to	:user
 	has_many	:sentences
