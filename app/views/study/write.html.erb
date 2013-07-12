@@ -1,26 +1,18 @@
-<title>write</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-<link rel="stylesheet" href="https://app.divshot.com/css/bootstrap.css">
-<link rel="stylesheet" href="https://app.divshot.com/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="https://app.divshot.com/css/divshot-util.css">
-<link rel="stylesheet" href="https://app.divshot.com/css/divshot-canvas.css">
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
       <div class="well">
-        <h1>Topic</h1>
-        <p>Quia placeat officia modi unde, cillum aut eos fuga, impedit voluptate
-          culpa nihil aperiam, eveniet non quod beatae officiis. Magnam numquam cum
-          asperiores ullam quis, minus, repellendus quae eveniet. Tempore expedita
-          explicabo quae quasi, accusamus, consequatur labore voluptatibus minus.</p>
+        <h1>Topic #<%=@topic.id%></h1>
+        <p><%=@topic.content%></p>
       </div>
       <h1>Write essay here</h1>
-      <textarea class="input-block-level" rows="20"></textarea>
-      <a class="btn btn-block btn-danger btn-large">Save</a> 
+			<%= form_tag(controller: "study", action: "write_process") %>
+			<input type="hidden" name="id" value="<%=@topic.id%>">
+      <textarea class="input-block-level" rows="20" name="content"></textarea>
+      <button type="submit" class="btn btn-block btn-danger btn-large">Save</a> 
+			</form>
     </div>
     <div class="span4">
-      <ul class="nav  nav-pills nav-stacked"></ul>
       <div class="well">
         <p>Aute dicta elit inventore ex necessitatibus, repudiandae minus quaerat
           fuga odio aute, elit facilis velit. Blanditiis cumque voluptate esse ratione
