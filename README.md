@@ -30,6 +30,7 @@ Model
 	- user_id:integer
 	- topic_id:integer
 	- username
+	- summary:text
 	- content:text
 	
 4. stence

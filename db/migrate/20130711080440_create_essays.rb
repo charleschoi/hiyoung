@@ -4,6 +4,7 @@ class CreateEssays < ActiveRecord::Migration
       t.integer :user_id
       t.integer :topic_id
 			t.string :username
+			t.text :summary
       t.text :content
 
       t.timestamps

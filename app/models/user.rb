@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :oauth_expires_at, :oauth_token, :provider, :uid
+	has_many	:topics
+	has_many	:essays
+	has_many	:comments
+	has_many	:checks
+
 	def self.from_omniauth(auth)
 		where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
 			user.provider = auth.provider
