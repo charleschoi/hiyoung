@@ -22,17 +22,17 @@
           <li>
             <a href="/study/essay">Essay</a> 
           </li>
+					<% if current_user %>
           <li>
             <a href="/study/news">My News</a> 
           </li>
-					<% if current_user %>
-						<li>
-							<%= link_to "Sign out", signout_path, id: "sign_out" %>
-						</li>
+					<li>
+						<%= link_to "Sign out", signout_path, id: "sign_out" %>
+					</li>
 					<% else %>
-						<li>
-							<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
-						</li>
+					<li>
+						<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>
+					</li>
 					<% end %>
         </ul>
       </div>
