@@ -25,11 +25,11 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "setence_id"
+    t.integer  "sentence_id"
     t.string   "username"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "essays", :force => true do |t|

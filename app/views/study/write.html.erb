@@ -3,7 +3,7 @@
     <div class="span8">
       <div class="well">
         <h1>Topic #<%=@topic.id%></h1>
-        <p><%=@topic.content%></p>
+        <pre><%=@topic.content%></pre>
       </div>
       <h1>Write essay here</h1>
 			<%= form_tag(controller: "study", action: "write_process") %>

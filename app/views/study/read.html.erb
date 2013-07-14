@@ -2,42 +2,16 @@
   <div class="row-fluid">
     <div class="span8">
       <div class="well">
-        <h1>Topic #12</h1>
-        <p>Quia placeat officia modi unde, cillum aut eos fuga, impedit voluptate
-          culpa nihil aperiam, eveniet non quod beatae officiis. Magnam numquam cum
-          asperiores ullam quis, minus, repellendus quae eveniet. Tempore expedita
-          explicabo quae quasi, accusamus, consequatur labore voluptatibus minus.</p>
+        <h1>Topic #<%=@topic.id%></h1>
+        <p><%=@topic.content%></p>
       </div>
-      <h1>Essay #21</h1>
+      <h1>Essay #<%=@essay.id%></h1>
       <div class="well">
-        <p>Exercitationem laboris nulla quis tempora quia quas quisquam illo exercitationem
-          aute occaecati nihil placeat eligendi facere labore similique earum autem
-          vitae tempora pariatur tenetur assumenda rerum eligendi eu architecto animi.
-          Ad perspiciatis minus assumenda quaerat nisi odio, amet nesciunt soluta
-          inventore ullam, consequatur libero, impedit eum quos enim. Libero inventore
-          incidunt nesciunt delectus ullamco, sequi dolorum, eum, aspernatur nesciunt
-          nemo. Nemo perferendis repudiandae occaecati veritatis mollitia nam laboris
-          quas perspiciatis impedit rem consequat aliqua doloremque magna placeat
-          numquam distinctio cupiditate molestiae occaecati necessitatibus exercitationem
-          odio aliqua cumque.</p>
-        <p>Atque odio deserunt nobis ipsam ut dignissimos qui id elit nostrud cupidatat
-          repudiandae odio, anim tenetur adipisci cupiditate voluptates perspiciatis
-          similique perspiciatis. Voluptas eiusmod necessitatibus aperiam error incididunt
-          quas, dicta, laborum repellendus officia asperiores officiis consectetur
-          occaecat cumque magni consequat placeat quaerat mollit reiciendis, inventore
-          corporis eligendi minima nostrum dolores do porro. Molestias voluptates
-          ea aspernatur porro unde qui nostrud rerum possimus harum.</p>
-        <p>Nobis aliqua reprehenderit itaque tenetur incididunt, mollitia irure quisquam
-          sint quae fuga consequatur in, ipsum perspiciatis recusandae. Sed labore
-          cupidatat saepe delectus at sint, facere eos nulla voluptas facere provident,
-          cupiditate numquam ut possimus proident numquam minim odio aute laborum
-          cumque mollit. Quisquam aute lorem nemo cillum eos vero corporis, qui porro
-          quam. Saepe ullam minima cillum adipisicing autem, quas ducimus, aperiam
-          non quasi deleniti eius.</p>
-        <p class="muted">- charles, 2010.8.5.</p>
+        <p><%=simple_format(@essay.content)%></p>
+        <p class="muted">- <%=@essay.username%>, <%=@essay.created_at.to_formatted_s(:long_ordinal)%></p>
       </div>
-      <a class="btn btn-block btn-info btn-large">Comment</a>
-      <h1>Other essayes in topic #12</h1>
+      <a href="/study/comment/<%=@essay.id%>" class="btn btn-block btn-info btn-large">Comment</a>
+      <h1>Other essayes in topic #<%=@topic.id%></h1>
       <table class="table">
         <thead>
           <tr>
@@ -48,22 +22,16 @@
           </tr>
         </thead>
         <tbody>
+				<% @essays.each_with_index do |l, index| %>
           <tr>
-            <td>1</td>
-            <td>asdf asdf asdf asdf asdfasdfasd fasdfasdfa sdfasdfasdfasdfasdfas dfasdfasdf&nbsp;</td>
-            <td>charles</td>
+            <td><%=index+1%></td>
+            <td><p><%=truncate(l.summary, length: 50)%></p></td>
+            <td><%=l.username%></td>
             <td>
-              <a class="btn btn-success">Read</a> 
+              <a href="/study/read/<%=l.id%>" class="btn btn-success btn-small">Read</a> 
             </td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Jake</td>
-            <td class="ds-editable-active">hayoung</td>
-            <td>
-              <a class="btn btn-success">Read</a> 
-            </td>
-          </tr>
+				<% end %>
         </tbody>
       </table>
     </div>

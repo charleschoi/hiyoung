@@ -1,45 +1,30 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
-      <div class="row-fluid">
-        <div class="span6">
-          <h2>Topic #1</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <h3>Essay #1</h3>
-          <p>Officiis cupiditate exercitation eos in aliquip, placeat assumenda aspernatur
-            modi. Placeat magni delectus maxime eos omnis laboris enim architecto officia
-            numquam enim corporis sapiente iusto laboris excepturi voluptates minim
-            nulla. Molestiae ex cumque porro assumenda adipisicing eius quaerat minima
-            sapiente minima nemo velit soluta, lorem aliquam, laboris iusto fugit voluptas
-            blanditiis, eveniet dicta occaecati rerum. Eligendi fuga repudiandae eius
-            quos exercitationem voluptatibus minima accusamus architecto sunt error
-            magni cum, voluptate consectetur, quibusdam ipsum voluptatibus minim duis
-            voluptas unde hic enim consequatur velit at.</p>
-          <a class="btn btn-block btn-success"
-          href="#"><span class="btn-label">Read more</span></a> 
-        </div>
-        <div class="span6">
-          <h2>Topic #2</h2>
-          <p>A paragraph of details about the heading and its related content so that
-            you can have an example of how this should work.</p>
-          <h3>Essay #1</h3>
-          <p>Officiis cupiditate exercitation eos in aliquip, placeat assumenda aspernatur
-            modi. Placeat magni delectus maxime eos omnis laboris enim architecto officia
-            numquam enim corporis sapiente iusto laboris excepturi voluptates minim
-            nulla. Molestiae ex cumque porro assumenda adipisicing eius quaerat minima
-            sapiente minima nemo velit soluta, lorem aliquam, laboris iusto fugit voluptas
-            blanditiis, eveniet dicta occaecati rerum. Eligendi fuga repudiandae eius
-            quos exercitationem voluptatibus minima accusamus architecto sunt error
-            magni cum, voluptate consectetur, quibusdam ipsum voluptatibus minim duis
-            voluptas unde hic enim consequatur velit at.</p>
-          <a class="btn btn-block btn-success"
-          href="#"><span class="btn-label">Read more</span></a> 
-        </div>
+      <div class="well">
+        <h1>Topic #<%=@sentences.first.essay.topic.id%></h1>
+        <pre><%=@sentences.first.essay.topic.content%></pre>
       </div>
+      <h1>Essay #<%=@sentences.first.essay.id%></h1>
+      <div class="well">
+			<% @sentences.each_with_index do |s, index| %>
+        <p class="lead"><%=s.content%></p>
+				<% s.comments.each_with_index do |c, i| %>
+					<p id="<%=c.id%>"><%=i+1%>. <span class="muted"> :</span> <span class="text-warning"><%=c.content%></span></p><p><span class="muted">- <%=c.username%>, <%=c.created_at.to_formatted_s(:long_ordianl)%></span></p>
+				<% end %>
+				<%= form_tag(controller: "study", action: "comment_process", method: "post") %>
+					<input type="hidden" name="id" value="<%=s.id%>">
+					<input type="hidden" name="essay_id" value="<%=s.essay.id%>">
+          <input type="text" name="content" placeholder="Comment here about &quot;<%=s.content%>&quot; and enter!" class="search-query" style="width:75%">
+          <button type="submit" class="btn pull-right btn-warning">Send</button>
+        </form>
+			<% end %>
+        <p class="muted">This essay written by <%=@sentences.first.essay.username%>, <%=@sentences.first.essay.created_at.to_formatted_s(:long_ordinal)%></p>
+      </div>
+				<a href="/study/essay" class="btn btn-info btn-block btn-large">List of essay about this topic</a> 
+				<a href="/study/write/<%=@sentences.first.essay.topic.id%>" class="btn btn-primary btn-block btn-large">Write new essay about this topic</a> 
     </div>
     <div class="span4">
-      <ul class="nav  nav-pills nav-stacked"></ul>
       <div class="well">
         <p>Aute dicta elit inventore ex necessitatibus, repudiandae minus quaerat
           fuga odio aute, elit facilis velit. Blanditiis cumque voluptate esse ratione

@@ -10,12 +10,14 @@
           <p><%= e.topic.content%></p>
           <h3>Essay #<%= e.id%></h3>
           <p><%= e.summary %></p>
-          <a class="btn btn-block btn-success"
-          href="#"><span class="btn-label">Read more</span></a> 
+          <a class="btn btn-block btn-success" href="/study/read/<%=e.id%>"><span class="btn-label">Read more</span></a> 
         </div>
 			<% if index % 2 == 1 %>
 				</div>
 			<% end %>
+		<% end %>
+		<% if @essay.count % 2 != 0 %>
+			</div>
 		<% end %>
     </div><!-- span 8 -->
     <div class="span4">

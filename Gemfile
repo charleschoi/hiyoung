@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'kaminari'
 gem 'omniauth-facebook'
+gem 'punkt-segmenter'
+gem 'stemmer'
+gem 'classifier'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

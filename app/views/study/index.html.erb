@@ -14,7 +14,7 @@
 			</div>
 		<% end %>
 	<% end %>
-	<%= form_tag(controller: "study", action: "topic_process", method: "get") %>
+	<%= form_tag(controller: "study", action: "topic_process", method: "post") %>
 		<%= text_area_tag(:content, "", rows: "3", class: "input-block-level") %>
 		<%= submit_tag("New Topic", class: "btn btn-block btn-warning") %>
 	</form>
