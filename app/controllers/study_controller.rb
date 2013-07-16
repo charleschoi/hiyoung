@@ -2,23 +2,31 @@ class StudyController < ApplicationController
   def index
 		@hot_topic = Topic.order("count DESC").first(6)
 		@recent_essay = Essay.last(6)
+		session[:query] = "hi"
   end
 
   def topic
 		@topic = Topic.all
+		session[:query] = "topic"
   end
 
 	def topic_process
-		topic = Topic.new
-		topic.username = current_user.name
-		topic.user_id = current_user.id
-		topic.content = params[:content]
-		topic.save
+		if params[:content] == ""
+			flash[:notice] = "Write topic please..."
+			redirect_to :controller => "study", :action => "index"
+		else
+			topic = Topic.new
+			topic.username = current_user.name
+			topic.user_id = current_user.id
+			topic.content = params[:content]
+			topic.save
 
-		redirect_to :controller => "study", :action => "write", :id => topic.id
+			redirect_to :controller => "study", :action => "write", :id => topic.id
+		end
 	end
 
   def essay
+		session[:query] = "essay"
 		@essay = Essay.all
   end
 
@@ -31,22 +39,21 @@ class StudyController < ApplicationController
 			flash[:notice] = "Write please..."
 			redirect_to :controller => "study", :action => "write", :id => params[:id]
 		else
-			require 'classification_and_summarization'
-			test = ClassifierAndSummarization.new
-			test.train([['public/wikipedia_text/computers.txt', "Computers"],
-			             ['public/wikipedia_text/economy.txt', "Economy"],
-			             ['public/wikipedia_text/health.txt', "Health"],
-			             ['public/wikipedia_text/software.txt', "Software"]])
-			require 'pp'
-			a = pp test.classify_and_summarize_plain_text(params[:content])
-
+			#require 'classification_and_summarization'
+			#test = ClassifierAndSummarization.new
+			#test.train([['public/wikipedia_text/computers.txt', "Computers"],
+			#             ['public/wikipedia_text/economy.txt', "Economy"],
+			#             ['public/wikipedia_text/health.txt', "Health"],
+			#             ['public/wikipedia_text/software.txt', "Software"]])
+			#require 'pp'
+			#a = pp test.classify_and_summarize_plain_text(params[:content])
 			essay = Essay.new
 			essay.user_id = current_user.id
 			essay.username = current_user.name
 			essay.topic_id = params[:id]
 			essay.content = params[:content]
-			essay.summary = a[1]
-			puts test.inspect
+			essay.summary = params[:title]
+			#puts test.inspect
 			if essay.save
 				require 'punkt-segmenter'
 				tokenizer = Punkt::SentenceTokenizer.new(essay.content)

@@ -7,7 +7,8 @@
       </div>
       <h1>Essay #<%=@essay.id%></h1>
       <div class="well">
-        <p><%=simple_format(@essay.content)%></p>
+        <p><%=simple_format(@essay.content.gsub(/%{=(\w+)\|(\w+)}/, '<a href="\2">\1</a>'))%></p>
+				<%="ab cd ef".gsub(/%{=(\w+)\|(\w+)}/, '<a href="\2">\1</a>')%>
         <p class="muted">- <%=@essay.username%>, <%=@essay.created_at.to_formatted_s(:long_ordinal)%></p>
       </div>
       <a href="/study/comment/<%=@essay.id%>" class="btn btn-block btn-info btn-large">Comment</a>
