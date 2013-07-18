@@ -46,6 +46,13 @@
 <% end %>
 
 <%= yield %>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$('.word').click(function() {
+	var query = $(this).text();
+	$("#dic").attr("src", "http://small.dic.daum.net/search.do?q="+ query +"&dic=ee");
+});
 
+</script>
 </body>
 </html>

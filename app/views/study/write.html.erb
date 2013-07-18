@@ -2,14 +2,14 @@
   <div class="row-fluid">
     <div class="span8">
       <div class="well">
-        <h1>Topic #<%=@topic.id%></h1>
-        <pre><%=@topic.content%></pre>
+        <h3>Topic #<%=@topic.id%></h3>
+        <p class="well"><%=@topic.content.html_safe%></p>
       </div>
-      <h1>Write essay here</h1>
+      <h3>Write essay here</h3>
 			<%= form_tag(controller: "study", action: "write_process") %>
-			<input type="text" name="title" placeholder="Input title" class="input-block-level">
+			<input type="text" name="title" placeholder="Title here" class="input-block-level">
 			<input type="hidden" name="id" value="<%=@topic.id%>">
-      <textarea class="input-block-level" rows="20" name="content" placeholder="Type content"></textarea>
+      <textarea class="input-block-level" rows="20" name="content" placeholder="Write essay here !"></textarea>
       <button type="submit" class="btn btn-block btn-danger btn-large">Save</a> 
 			</form>
     </div>

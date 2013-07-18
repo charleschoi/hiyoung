@@ -1,24 +1,30 @@
 <div class="container-fluid">
   <div class="row-fluid">
-    <div class="span8">
-		<% @essay.each_with_index do |e, index| %>
-			<% if index % 2 == 0 %>
-				<div class="row-fluid">
-			<% end %>
-        <div class="span6">
-          <h2>Topic #<%= e.topic.id%></h2>
-          <p><%= e.topic.content%></p>
-          <h3>Essay #<%= e.id%></h3>
-          <p><%= e.summary %></p>
-          <a class="btn btn-block btn-success" href="/study/read/<%=e.id%>"><span class="btn-label">Read more</span></a> 
-        </div>
-			<% if index % 2 == 1 %>
-				</div>
-			<% end %>
-		<% end %>
-		<% if @essay.count % 2 != 0 %>
-			</div>
-		<% end %>
+    <div class="span8 well">
+			<h1>Essays</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Topic (Click to new essay)</th>
+            <th>Essay Title (Click to read)</th>
+            <th>Author</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+					<% @essay.each do |e| %>
+          <tr>
+            <td><%=e.id%></td>
+            <td onclick="location.href='/study/write/<%=e.topic.id%>'" style="cursor:pointer;"><%=e.topic.content.html_safe%></td>
+            <td onclick="location.href='/study/read/<%=e.id%>'" style="cursor:pointer;"><%=e.summary%></td>
+            <td onclick="location.href='/study/essay/<%=e.username%>'" style="cursor:pointer;"><%=e.username%></td>
+            <td>
+              <a href="/study/comment/<%=e.id%>" class="btn btn-info">Comments</a> 
+            </td>
+          </tr>
+					<% end %>
+        </tbody>
+      </table>
     </div><!-- span 8 -->
     <div class="span4">
       <div class="well">

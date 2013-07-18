@@ -1,30 +1,29 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
+			<h3>Topic #<%=@topic.id%></h3>
       <div class="well">
-        <h1>Topic #<%=@topic.id%></h1>
-        <p><%=@topic.content%></p>
+        <p><%=@topic.content.html_safe%></p>
       </div>
-      <h1>Essay #<%=@essay.id%></h1>
+      <h3>Essay #<%=@essay.id%></h3>
       <div class="well">
-        <p><%=simple_format(@essay.content.gsub(/%{=(\w+)\|(\w+)}/, '<a href="\2">\1</a>'))%></p>
-				<%="ab cd ef".gsub(/%{=(\w+)\|(\w+)}/, '<a href="\2">\1</a>')%>
+        <p><%=simple_format(@essay.content)%></p>
         <p class="muted">- <%=@essay.username%>, <%=@essay.created_at.to_formatted_s(:long_ordinal)%></p>
       </div>
       <a href="/study/comment/<%=@essay.id%>" class="btn btn-block btn-info btn-large">Comment</a>
-      <h1>Other essayes in topic #<%=@topic.id%></h1>
+      <h3>Other essays in topic #<%=@topic.id%></h3>
       <table class="table">
         <thead>
           <tr>
             <th>#</th>
-            <th>Summary</th>
+            <th>Title</th>
             <th>Author</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
 				<% @essays.each_with_index do |l, index| %>
-          <tr>
+          <tr onclick="location.href='/study/read/<%=l.id%>'" style="cursor:pointer;">
             <td><%=index+1%></td>
             <td><p><%=truncate(l.summary, length: 50)%></p></td>
             <td><%=l.username%></td>

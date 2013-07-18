@@ -6,6 +6,7 @@ class CreateEssays < ActiveRecord::Migration
 			t.string :username
 			t.text :summary
       t.text :content
+			t.boolean :is_view
 
       t.timestamps
     end

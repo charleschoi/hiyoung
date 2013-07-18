@@ -4,4 +4,11 @@ class Sentence < ActiveRecord::Base
 	belongs_to	:user
 	has_many	:comments
 
+
+	def content=(value)
+		result = value.gsub(/\b(\w+)\b/) do |s|
+		'<span class="word">' + s + '</span>'
+		end
+		write_attribute(:content, result)
+	end
 end

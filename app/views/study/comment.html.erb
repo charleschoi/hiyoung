@@ -1,25 +1,26 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span8">
+			<h1>Topic #<%=@sentences.first.essay.topic.id%></h1>
       <div class="well">
-        <h1>Topic #<%=@sentences.first.essay.topic.id%></h1>
-        <pre><%=@sentences.first.essay.topic.content%></pre>
+        <p><%=@sentences.first.essay.topic.content.html_safe%></p>
       </div>
       <h1>Essay #<%=@sentences.first.essay.id%></h1>
       <div class="well">
 			<% @sentences.each_with_index do |s, index| %>
-        <p class="lead"><%=s.content%></p>
+        <p class="lead"><%=s.content.html_safe%></p>
 				<% s.comments.each_with_index do |c, i| %>
-					<p id="<%=c.id%>"><%=i+1%>. <span class="muted"> :</span> <span class="text-warning"><%=c.content%></span></p><p><span class="muted">- <%=c.username%>, <%=c.created_at.to_formatted_s(:long_ordianl)%></span></p>
+					<p id="<%=c.id%>"><%=i+1%>. <span class="muted"> :</span> <span class="text-warning"><%=c.content.html_safe%></span></p><p><span class="muted">- <%=c.username%>, <%=c.created_at.to_formatted_s(:long_ordianl)%></span></p>
 				<% end %>
 				<%= form_tag(controller: "study", action: "comment_process", method: "post") %>
 					<input type="hidden" name="id" value="<%=s.id%>">
 					<input type="hidden" name="essay_id" value="<%=s.essay.id%>">
-          <input type="text" name="content" placeholder="Comment here about &quot;<%=s.content%>&quot; and enter!" class="search-query" style="width:75%">
+          <input type="text" name="content" placeholder="Comment here about this sentence and press enter!" class="search-query" style="width:75%">
           <button type="submit" class="btn pull-right btn-warning">Send</button>
         </form>
+				<hr>
 			<% end %>
-        <p class="muted">This essay written by <%=@sentences.first.essay.username%>, <%=@sentences.first.essay.created_at.to_formatted_s(:long_ordinal)%></p>
+        <p class="muted">This essay is written by <%=@sentences.first.essay.username%>, <%=@sentences.first.essay.created_at.to_formatted_s(:long_ordinal)%></p>
       </div>
 				<a href="/study/essay" class="btn btn-info btn-block btn-large">List of essay about this topic</a> 
 				<a href="/study/write/<%=@sentences.first.essay.topic.id%>" class="btn btn-primary btn-block btn-large">Write new essay about this topic</a> 

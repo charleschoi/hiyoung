@@ -19,6 +19,7 @@ class StudyController < ApplicationController
 			topic.username = current_user.name
 			topic.user_id = current_user.id
 			topic.content = params[:content]
+			topic.count = 0
 			topic.save
 
 			redirect_to :controller => "study", :action => "write", :id => topic.id
@@ -27,7 +28,13 @@ class StudyController < ApplicationController
 
   def essay
 		session[:query] = "essay"
-		@essay = Essay.all
+		if params[:id] =~ /u/
+			@essay = Essay.where(:user_id => params[:id].sub("u",""))
+		elsif params[:id] =~ /\d/
+			@essay = Essay.where(:topic_id => params[:id])
+		else
+			@essay = Essay.all
+		end
   end
 
   def write
@@ -39,14 +46,6 @@ class StudyController < ApplicationController
 			flash[:notice] = "Write please..."
 			redirect_to :controller => "study", :action => "write", :id => params[:id]
 		else
-			#require 'classification_and_summarization'
-			#test = ClassifierAndSummarization.new
-			#test.train([['public/wikipedia_text/computers.txt', "Computers"],
-			#             ['public/wikipedia_text/economy.txt', "Economy"],
-			#             ['public/wikipedia_text/health.txt', "Health"],
-			#             ['public/wikipedia_text/software.txt', "Software"]])
-			#require 'pp'
-			#a = pp test.classify_and_summarize_plain_text(params[:content])
 			essay = Essay.new
 			essay.user_id = current_user.id
 			essay.username = current_user.name
@@ -55,9 +54,12 @@ class StudyController < ApplicationController
 			essay.summary = params[:title]
 			#puts test.inspect
 			if essay.save
+				topic = essay.topic
+				topic.count += 1
+				topic.save
 				require 'punkt-segmenter'
-				tokenizer = Punkt::SentenceTokenizer.new(essay.content)
-				result = tokenizer.sentences_from_text(essay.content, :output => :sentences_text)
+				tokenizer = Punkt::SentenceTokenizer.new(params[:content])
+				result = tokenizer.sentences_from_text(params[:content], :output => :sentences_text)
 				result.each do |r|
 					sentence = Sentence.new
 					sentence.user_id = current_user.id
@@ -68,7 +70,7 @@ class StudyController < ApplicationController
 				sentence = Sentence.new
 				sentence.user_id = current_user.id
 				sentence.essay_id = essay.id
-				sentence.content = "Total :"
+				sentence.content = "Grade this essay and make a general comment !"
 				sentence.save
 			end
 			redirect_to :controller => "study", :action => "read", :id => essay.id

@@ -1,37 +1,69 @@
 <div class="container-fluid">
-  <h1>Hot Topic</h1>
-	<% @hot_topic.each_with_index do |t, index| %>
-		<% if index % 3 == 0 %>
-			<div class="row-fluid">
-		<% end %>
-			<div class="span4">
-				<div class="well">
-					<p><h3><%=index+1-%></h3> <%= t.content %></p>
-					<a href="/study/write/<%=t.id%>" class="btn btn-primary btn-block">Write Essay</a> 
-				</div>
-			</div>
-		<% if index % 3 == 2 %>
-			</div>
-		<% end %>
-	<% end %>
-	<%= form_tag(controller: "study", action: "topic_process", method: "post") %>
-		<%= text_area_tag(:content, "", rows: "3", class: "input-block-level") %>
-		<%= submit_tag("New Topic", class: "btn btn-block btn-warning") %>
-	</form>
-  <h1>New Essay</h1>
-	<% @recent_essay.each_with_index do |e, index| %>
-		<% if index % 3 == 0 %>
-			<div class="row-fluid">
-		<% end %>
-			<div class="span4">
-				<div class="well">
-					<p><%= e.content %></p>
-					<p class="muted">- <%= e.username %></p>
-					<a href="/study/read/<%=e.id%>" class="btn btn-success btn-block">Read more</a> 
-				</div>
-			</div>
-		<% if index % 3 == 2 %>
-			</div>
-		<% end %>
-	<% end %>
-</div>
+	<div class="row-fluid">
+		<div class="span8">
+		<h1>Hot Topics Top 10</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Topic</th>
+					<th>New Essay</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @hot_topic.each_with_index do |t, index| %>
+				<tr>
+					<td><%=index+1%></td>
+					<td onclick="location.href='/study/essay/<%=t.id%>'"
+	style="cursor:pointer;"><%=t.content.html_safe%>
+						<span class="badge badge-important"><%=t.count%></span> 
+					</td>
+					<td>
+						<a href="/study/write/<%=t.id%>" class="btn btn-primary">Write</a> 
+					</td>
+				</tr>
+				<% end %>
+				<tr>
+					<td colspan="2">
+					<%= form_tag(controller: "study", action: "topic_process", method: "post") %>
+						<input type="text" name="content" placeholder="Type new topic here" class="search-query input-block-level">
+					</td>
+					<td>
+						<button type="submit" class="btn btn-warning">Upload</button>
+					</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<h1>New Essays 10</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Topic</th>
+					<th>Essay Title</th>
+					<th>Author</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+				<% @recent_essay.each_with_index do |e, index| %>
+				<tr>
+					<td><%=index+1%></td>
+					<td onclick="location.href='/study/write/<%=e.topic.id%>'" style="cursor:pointer;"><%=e.topic.content.html_safe%></td>
+					<td onclick="location.href='/study/read/<%=e.id%>'" style="cursor:pointer;"><%=e.summary%></td>
+					<td onclick="location.href='/study/essay/u<%=e.user_id%>'" style="cursor:pointer;"><%=e.username%></td>
+					<td>
+						<a href="/study/comment/<%=e.id%>" class="btn btn-primary">Comments</a> 
+					</td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		</div><!-- span8 -->
+    <div class="span4">
+      <div class="well">
+				<%= render "dic" %>
+      </div>
+    </div><!-- span4 -->
+	</div><!-- row -->
+</div><!-- container -->

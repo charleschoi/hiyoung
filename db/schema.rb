@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130711080610) do
     t.string   "username"
     t.text     "summary"
     t.text     "content"
+    t.boolean  "is_view"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
