@@ -1,10 +1,35 @@
 <div class="container-fluid">
-	<div class="row-fluid">
-		<%= form_tag(:controller => "study", :action => "change_username") %>
-			<input type="hidden" name="id" value="<%=session[:user_id]%>">
-			<input type="text" name="name" value="<%=@name.name%>"><br>
-			<button type="submit" value="Change!">Change!</button>
-		</form>
-
-	</div>
+  <div class="row-fluid">
+    <div class="span12">
+      <h1>Change My Name</h1>
+			<%= form_tag(:controller => "study", :action => "change_username") %>
+					<input type="hidden" name="id" value="<%=session[:user_id]%>">
+					<input type="text" name="name" class="search-query" value="<%=@name.name%>"><br>
+          <button class="btn btn-info" type="submit">Change!</button>
+      </form>
+      <h1>New Comments</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Comment</th>
+            <th>Commentator</th>
+            <th>Checking</th>
+          </tr>
+        </thead>
+        <tbody>
+					<% @comments.each_with_index do |c, index| %>
+          <tr onclick="location.href='/study/comment/<%=c.essay_id%>#<%=c.id%>'" style="cursor:pointer;">
+            <td><%=index+1%></td>
+            <td><%=c.content.html_safe%></td>
+            <td><%=c.by_name%></td>
+            <td>
+              <a href="/study/dismiss/<%=c.id%>" class="btn btn-danger btn-mini">dismiss<br></a> 
+            </td>
+          </tr>
+					<% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

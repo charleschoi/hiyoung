@@ -14,11 +14,13 @@
 ActiveRecord::Schema.define(:version => 20130711080610) do
 
   create_table "checks", :force => true do |t|
-    t.integer  "topic_id"
     t.integer  "essay_id"
-    t.integer  "comment_id"
     t.integer  "user_id"
-    t.boolean  "viewed"
+    t.integer  "by_id"
+    t.string   "by_name"
+    t.string   "content"
+    t.string   "anchor"
+    t.boolean  "is_view"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

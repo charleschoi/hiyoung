@@ -1,13 +1,12 @@
 class StudyController < ApplicationController
   def index
-		@hot_topic = Topic.order("count DESC").first(6)
-		@recent_essay = Essay.last(6)
-		session[:query] = "hi"
+		@hot_topic = Topic.order("count DESC").first(10)
+		@recent_essay = Essay.last(10).reverse
+		session[:query] = "Click a word!"
   end
 
   def topic
 		@topic = Topic.all
-		session[:query] = "topic"
   end
 
 	def topic_process
@@ -27,7 +26,6 @@ class StudyController < ApplicationController
 	end
 
   def essay
-		session[:query] = "essay"
 		if params[:id] =~ /u/
 			@essay = Essay.where(:user_id => params[:id].sub("u",""))
 		elsif params[:id] =~ /\d/
@@ -42,7 +40,7 @@ class StudyController < ApplicationController
   end
 
 	def write_process
-		if params[:content] == ""
+		if params[:content] == "" or params[:title] == ""
 			flash[:notice] = "Write please..."
 			redirect_to :controller => "study", :action => "write", :id => params[:id]
 		else
@@ -96,14 +94,35 @@ class StudyController < ApplicationController
 		comment.username = current_user.name
 		comment.content = params[:content]
 		comment.sentence_id = params[:id]
-		comment.save
+		if comment.save
+			check = Check.new
+			check.essay_id = comment.sentence.essay.id
+			check.user_id = comment.sentence.essay.user_id
+			check.by_id = current_user.id
+			check.by_name = current_user.name
+			check.content = params[:content]
+			check.is_view = true
+			check.save
+		end
 
 		redirect_to :controller => "study", :action => "comment", :id => params[:essay_id], :anchor => comment.id
 	end
 
 	def news
 		@name = User.find(session[:user_id])
+		@comments = Check.where(:user_id => session[:user_id]).where(:is_view => true)
+	end
 
+	def dismiss
+		comment = Check.find(params[:id])
+		if comment.user_id == session[:user_id]
+			comment.is_view = false
+			comment.save
+			redirect_to :controller => "study", :action => "news" 
+		else
+			flash[:notice] = "something wrong..."
+			redirect_to :root
+		end
 	end
 
 	def change_username

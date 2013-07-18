@@ -24,7 +24,7 @@
           </li>
 					<% if current_user %>
           <li>
-            <a href="/study/news"><%=current_user.name%></a> 
+            <a href="/study/news"><%=current_user.name%> <span class="badge badge-important"><%=news_count%></span></a>
           </li>
 					<li>
 						<%= link_to "Sign out", signout_path, id: "sign_out" %>
